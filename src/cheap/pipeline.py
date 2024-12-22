@@ -42,7 +42,8 @@ class Pipeline:
         res = self.esmfold_embed_only_module.infer_embedding(sequences)
         emb, mask = res['s'], res['mask']
         emb, mask = emb.to(self.device), mask.to(self.device)
+        esm_emb = emb.clone()
 
         emb = self.latent_scaler.scale(emb)
         compressed_representation, downsampled_mask = self.hourglass_model(emb, mask, infer_only=True)
-        return compressed_representation, downsampled_mask
+        return compressed_representation, downsampled_mask, esm_emb
