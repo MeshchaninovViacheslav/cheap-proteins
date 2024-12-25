@@ -1,4 +1,4 @@
-name: cheap 
+name: cheap_with_dif
 channels:
   - pytorch
   - nvidia
@@ -10,9 +10,11 @@ dependencies:
   - pip
   - gxx_linux-64>=9,<=12
   - ninja
+  - cuda=12.1.0
   - pytorch
   - pytorch-cuda=12.1
   - torchvision
+  - libxcrypt
   - bioconda::tmalign
   - pip:
     - -r requirements.txt
