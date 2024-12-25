@@ -265,16 +265,15 @@ class LatentScaler:
         if (self.mode is None) or (self.mode == "identity"):
             return x_scaled
         else:
-            with torch.no_grad():
-                if self.mode == "global_minmaxnorm":
-                    x_scaled = _undo_minmax_scaling(x_scaled, self.minv, self.maxv)
-                elif self.mode == "global_standardize":
-                    x_scaled = _undo_standardize(x_scaled, self.meanv, self.stdv)
-                elif self.mode == "channel_minmaxnorm":
-                    x_scaled = _undo_minmax_scaling(x_scaled, self.minv, self.maxv)
-                elif self.mode == "channel_standardize":
-                    x_scaled = _undo_standardize(x_scaled, self.meanv, self.stdv)
-                else:
-                    raise NotImplementedError
+            if self.mode == "global_minmaxnorm":
+                x_scaled = _undo_minmax_scaling(x_scaled, self.minv, self.maxv)
+            elif self.mode == "global_standardize":
+                x_scaled = _undo_standardize(x_scaled, self.meanv, self.stdv)
+            elif self.mode == "channel_minmaxnorm":
+                x_scaled = _undo_minmax_scaling(x_scaled, self.minv, self.maxv)
+            elif self.mode == "channel_standardize":
+                x_scaled = _undo_standardize(x_scaled, self.meanv, self.stdv)
+            else:
+                raise NotImplementedError
             return x_scaled
 
