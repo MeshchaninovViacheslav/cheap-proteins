@@ -285,7 +285,11 @@ class LatentToStructure:
                 mask=mask_,
                 num_recycles=num_recycles,
             )
-        output["chain_index"] = kwargs["chain_index"]
+        
+        if "chain_index" in kwargs:
+            output["chain_index"] = kwargs["chain_index"]
+        else:
+            output["chain_index"] = torch.zeros_like(output["residue_index"])
         pdb_str = output_to_pdb(output)
 
         for k, v in output.items():
