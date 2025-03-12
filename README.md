@@ -31,8 +31,66 @@ cd cheap-proteins
 
 To create the environment for the repository:
 ```
-conda env create --file environment.yaml
-pip install --no-deps git+https://github.com/amyxlu/openfold.git  # see note below
+conda env create --file environment_new.yaml
+conda activate /home/jovyan/shares/SR006.nfs2/envs/cheap_with_dif_v2
+```
+
+```
+conda install -c nvidia \
+  cuda=12.1.0=0 \
+  cuda-cccl=12.6.77=0 \
+  cuda-cccl_linux-64=12.6.77=0 \
+  cuda-command-line-tools=12.1.1=0 \
+  cuda-compiler=12.6.2=0 \
+  cuda-crt-dev_linux-64=12.6.20=0 \
+  cuda-crt-tools=12.6.20=0 \
+  cuda-cudart=12.1.105=0 \
+  cuda-cudart-dev=12.1.105=0 \
+  cuda-cudart-dev_linux-64=12.6.77=0 \
+  cuda-cudart-static=12.6.77=0 \
+  cuda-cudart-static_linux-64=12.6.77=0 \
+  cuda-cudart_linux-64=12.6.77=0 \
+  cuda-cuobjdump=12.6.77=0 \
+  cuda-cupti=12.1.105=0 \
+  cuda-cuxxfilt=12.6.77=0 \
+  cuda-demo-suite=12.4.127=0 \
+  cuda-documentation=12.4.127=0 \
+  cuda-driver-dev=12.6.77=0 \
+  cuda-driver-dev_linux-64=12.6.77=0 \
+  cuda-gdb=12.6.77=0 \
+  cuda-libraries=12.1.0=0 \
+  cuda-libraries-dev=12.6.2=0 \
+  cuda-libraries-static=12.6.2=0 \
+  cuda-nsight=12.6.77=0 \
+  cuda-nvcc=12.6.20=0 \
+  cuda-nvcc-dev_linux-64=12.6.20=0 \
+  cuda-nvcc-impl=12.6.20=0 \
+  cuda-nvcc-tools=12.6.20=0 \
+  cuda-nvcc_linux-64=12.6.20=0 \
+  cuda-nvdisasm=12.6.77=0 \
+  cuda-nvml-dev=12.6.77=2 \
+  cuda-nvprof=12.6.80=0 \
+  cuda-nvprune=12.6.77=0 \
+  cuda-nvrtc=12.1.105=0 \
+  cuda-nvrtc-dev=12.1.105=0 \
+  cuda-nvrtc-static=12.6.85=0 \
+  cuda-nvtx=12.1.105=0 \
+  cuda-nvvm-dev_linux-64=12.6.20=0 \
+  cuda-nvvm-impl=12.6.20=0 \
+  cuda-nvvm-tools=12.6.20=0 \
+  cuda-nvvp=12.6.80=0 \
+  cuda-opencl=12.6.77=0 \
+  cuda-opencl-dev=12.6.77=0 \
+  cuda-profiler-api=12.6.77=0 \
+  cuda-runtime=12.1.0=0 \
+  cuda-sanitizer-api=12.6.77=0 \
+  cuda-toolkit=12.1.0=0 \
+  cuda-tools=12.1.1=0 \
+  cuda-version=12.6=3
+```
+
+```
+pip install --no-deps git+https://github.com/amyxlu/openfold.git@25b2a47eb185a05980e52fc72343a4565be02fa4  # see note below
 pip install -e .
 ```
 
@@ -45,7 +103,7 @@ pip install -e .
 To use the model for inference, several cached tensors are needed to normalize by channel and bypass massive activations explored in the paper. By default, the files will be downloaded to `~/.cache/cheap`. However, since these files can be large, you can override by setting the `CHEAP_CACHE` environment variable:
 
 ```
-echo "export CHEAP_CACHE=/data/lux70/cheap" >> ~/.bashrc
+echo "export CHEAP_CACHE=/home/jovyan/shares/SR006.nfs2/.cache" >> ~/.bashrc
 ```
 
 >[!NOTE]

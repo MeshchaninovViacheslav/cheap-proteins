@@ -1,4 +1,4 @@
-name: cheap_with_dif
+name: cheap_with_dif_v2
 channels:
   - pytorch
   - nvidia
@@ -6,7 +6,7 @@ channels:
   - bioconda
   - salilab
 dependencies:
-  - python==3.10
+  - python==3.11
   - pip
   - gxx_linux-64>=9,<=12
   - ninja
