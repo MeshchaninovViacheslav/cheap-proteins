@@ -24,7 +24,7 @@ def load_pretrained_model(
 ):
     if (shorten_factor == 1) and (channel_dimension == 1024):
         # this uses the ESM mechanism for automatically downloading weights if they're not cached
-        return esmfold_v1_embed_only()
+        return None #esmfold_v1_embed_only(), esmfold_embed_only repeats this
     else:
         model_id = CATH_COMPRESS_LEVEL_TO_ID[shorten_factor][channel_dimension]
         return load_model_from_id(model_id=model_id, model_dir=model_dir, infer_mode=infer_mode)

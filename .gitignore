@@ -17,3 +17,4 @@ outputs/*
 cached_tensors/*
 artifacts/*
 
+generated_seqs/*

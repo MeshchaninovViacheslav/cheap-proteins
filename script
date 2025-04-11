@@ -1,0 +1,9 @@
+CUDA_VISIBLE_DEVICES=0 python decode.py \
+--cheap_model="CHEAP_shorten_1_dim_128" \
+--path="../DiMA/generated_seqs/DiMA2.0-CHEAP_shorten_1_dim_128-CHEAP_shorten_1_dim_128-128-320-updated/200000-N=1000-len=2048-t_min=0.05.json" \
+--output_path="generated_seqs/DiMA2.0-CHEAP_shorten_1_dim_128-CHEAP_shorten_1_dim_128-128-320-updated/200000-N=1000-len=2048-t_min=0.05.json" 
+
+
+CUDA_VISIBLE_DEVICES=0 python transform.py \
+--cheap_model="CHEAP_shorten_1_dim_128"
+--save_dir="/home/jovyan/shares/SR003.nfs2/meshchaninov"

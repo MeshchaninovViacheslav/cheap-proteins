@@ -288,6 +288,11 @@ class LatentToStructure:
                 mask=mask_,
                 num_recycles=num_recycles,
             )
+        
+        if "chain_index" in kwargs:
+            output["chain_index"] = kwargs["chain_index"]
+        else:
+            output["chain_index"] = torch.zeros_like(output["residue_index"])
         pdb_str = output_to_pdb(output)
 
         for k, v in output.items():
@@ -310,7 +315,7 @@ class LatentToStructure:
         **kwargs,
     ) -> T.Tuple[T.List[PathLike], T.Union[T.Dict, pd.DataFrame]]:
         """set up devices and tensors"""
-        aatype, mask_, residx, _, _ = batch_encode_sequences(sequences)
+        aatype, mask_, residx, _, chain_index = batch_encode_sequences(sequences)
 
         if mask is None:
             mask = mask_
@@ -326,7 +331,7 @@ class LatentToStructure:
         if batch_size is None:
             if verbose:
                 print("Generating structure from latents")
-            return self.run_batch(latent, aatype, mask, residx, num_recycles)
+            return self.run_batch(latent, aatype, mask, residx, num_recycles, chain_index=chain_index)
 
         else:
             all_output_dicts = []
