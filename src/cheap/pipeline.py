@@ -44,7 +44,7 @@ class Pipeline:
     def __call__(self, sequences: Union[str, List[str]]) -> Tuple[torch.Tensor, torch.Tensor]:
         """Given the original ESMFold latent, normalize and compress using the loaded checkpoint."""
         res = self.esmfold_embed_only_module.infer_embedding(sequences)
-        emb, mask = res['s'], res['mask']
+        emb, mask, aatype = res['s'], res['mask'], res['aatype']
         emb, mask = emb.to(self.device), mask.to(self.device)
         esm_emb = emb.clone()
 
@@ -53,4 +53,4 @@ class Pipeline:
             compressed_representation, downsampled_mask = self.hourglass_model(emb, mask, infer_only=True)
         else:
             compressed_representation, downsampled_mask = emb, mask
-        return compressed_representation, downsampled_mask, esm_emb
+        return compressed_representation, downsampled_mask, esm_emb, aatype

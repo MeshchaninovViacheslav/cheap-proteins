@@ -364,6 +364,7 @@ class ESMFoldEmbed(nn.Module):
             "z": s_z_0,
             "mask": mask,
             "pos": residx,
+            "aatype": aatype,
         }
 
     @property
