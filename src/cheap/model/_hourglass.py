@@ -360,13 +360,9 @@ class HourglassProteinCompressionTransformer(nn.Module):
         if self.make_structure_constructor:
             self.structure_constructor = self.structure_constructor.to(device)
             with torch.no_grad():
-                struct_loss, struct_loss_dict = self.structure_loss_fn(
+                struct_loss = self.structure_loss_fn(
                     x_recons_unscaled, gt_structures, sequences
                 )
-            struct_loss_dict = {
-                f"{prefix}/{k}": v.mean() for k, v in struct_loss_dict.items()
-            }
-            log_dict = log_dict | struct_loss_dict
             loss += struct_loss * self.struct_loss_weight
 
         return loss, log_dict

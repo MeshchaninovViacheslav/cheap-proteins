@@ -93,14 +93,15 @@ class BackboneAuxiliaryLoss:
         assert pred_raw_outputs["frames"].shape == torch.Size(
             [8, batch_size, seq_len, 7]
         )
+        
+        plddt = torch.sum(pred_raw_outputs["plddt"] * pred_raw_outputs["atom37_atom_exists"]) / torch.sum(pred_raw_outputs["atom37_atom_exists"])
 
         loss = backbone_loss(
             backbone_rigid_tensor=gt_structures["backbone_rigid_tensor"].to(device),
             backbone_rigid_mask=gt_structures["backbone_rigid_mask"].to(device),
             traj=pred_raw_outputs["frames"],
         )
+        
 
         weight = self.weight if cur_weight is None else cur_weight
-        metrics = outputs_to_avg_metric(pred_raw_outputs)
-        logdict = {"backbone_loss": loss.item()} | metrics
-        return weight * loss, logdict
+        return weight * loss, plddt

@@ -355,7 +355,7 @@ class ESMFoldEmbed(nn.Module):
             lambda x: x.to(self.device), (aatype, mask, residx, linker_mask)
         )
 
-        with torch.no_grad():
+        with torch.no_grad(), torch.autocast(device_type='cuda', dtype=torch.bfloat16):
             s_s_0, s_z_0, _, residx, mask = self.embed_for_folding_trunk(
                 aatype, mask, residx, masking_pattern
             )

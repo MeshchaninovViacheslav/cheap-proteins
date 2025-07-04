@@ -276,23 +276,19 @@ class LatentToStructure:
         aa_ = maybe_pad(aa_, L)
         residx_ = maybe_pad(residx_, L)
 
-        with torch.no_grad():
-            output = self.esmfold.folding_trunk(
-                s_s_0=s_,
-                s_z_0=z_,
-                aa=aa_,
-                residx=residx_,
-                mask=mask_,
-                num_recycles=num_recycles,
-            )
+        output = self.esmfold.folding_trunk(
+            s_s_0=s_,
+            s_z_0=z_,
+            aa=aa_,
+            residx=residx_,
+            mask=mask_,
+            num_recycles=num_recycles,
+        )
         output["chain_index"] = kwargs["chain_index"]
-        pdb_str = output_to_pdb(output)
 
-        for k, v in output.items():
-            try:
-                output[k] = v.cpu()
-            except:
-                pass
+        copy_output = {key: value.detach().clone().cpu() for key, value in output.items()}
+        pdb_str = output_to_pdb(copy_output)
+
         return pdb_str, output
 
     def to_structure(
